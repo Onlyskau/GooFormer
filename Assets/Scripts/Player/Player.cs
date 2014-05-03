@@ -10,24 +10,37 @@ public class Player : MonoBehaviour {
 
 
 	//Jump
-	bool grounded = false;
-	public Transform groundCheck;
-	float groundRadius = 0.2f;
+	protected bool grounded = false;
+	protected float groundRadius = 0.2f;
+	protected float jumpForce = 500f;
+	protected bool doubleJump = false;
+
 	public LayerMask whatIsGround;
-	public float jumpForce = 100f;
-	bool doubleJump = false;
+	public Transform groundCheck;
 
 
 	// Facing
 	bool facingRight = true;
 
-	
+
+	// Health
+	protected int health;
+	protected float immunityCD = 0f;
+	public int HealthTracker;
+
+	// Scripted Event
+	public bool Speech;
+	protected bool canMove = true;
+
+
+	// Death
+	public GameObject DeadText;
 	
 	// Use this for initialization
 	void Start () 
 	{
 		//anim = GetComponent<Animator>();
-		
+		health = 100;
 	}
 	
 	// Update is called once per frame
@@ -45,8 +58,11 @@ public class Player : MonoBehaviour {
 			
 		float move = Input.GetAxis ("Horizontal");
 			
-			
-		rigidbody2D.velocity = new Vector2(move * maxSpeed, rigidbody2D.velocity.y);
+
+		if(canMove)
+		{
+			rigidbody2D.velocity = new Vector2(move * maxSpeed, rigidbody2D.velocity.y);
+		}
 			
 
 
@@ -60,19 +76,24 @@ public class Player : MonoBehaviour {
 	
 	void Update ()
 	{
+		HealthTracker = health;
 
-		if((grounded || !doubleJump) && Input.GetButtonDown ("Jump"))
-		{
-			rigidbody2D.AddForce(new Vector2(0, jumpForce));
-	
-
-			if(!doubleJump && !grounded)
-				doubleJump = true;
-		}
-			
-		if(Input.GetKeyDown(KeyCode.S))
+		if(canMove)
 		{
 
+			if((grounded || !doubleJump) && Input.GetButtonDown ("Jump"))
+			{
+				rigidbody2D.AddForce(new Vector2(0, jumpForce));
+		
+
+				if(!doubleJump && !grounded)
+					doubleJump = true;
+			}
+				
+			if(Input.GetKeyDown(KeyCode.S))
+			{
+
+			}
 		}
 
 
@@ -88,6 +109,31 @@ public class Player : MonoBehaviour {
 		Vector3 theScale = transform.localScale;
 		theScale.x *= -1;
 		transform.localScale = theScale;
+	}
+
+	public void Speechset() {
+		if(Speech == false)
+		{
+			Speech = true;
+			canMove = false;
+		} else {
+			Speech = false;
+			canMove = true;
+		}
+	}
+
+	public void TakeDamage(int damage){		
+		if(immunityCD < Time.time){			
+			health -= damage;							
+			if(health < 1)					
+				Destroy(gameObject);		
+			immunityCD = Time.time + 0.25f;	
+		}									
+	}
+
+	void OnDestroy(){
+		HealthTracker = 0;
+		//GameObject Dead = Instantiate(DeadText, new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;
 	}
 
 }
