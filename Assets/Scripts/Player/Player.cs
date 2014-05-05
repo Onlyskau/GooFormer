@@ -32,6 +32,11 @@ public class Player : MonoBehaviour {
 	public bool Speech;
 	protected bool canMove = true;
 
+	// Goo Level
+	public int Goo = 1;
+
+	public Transform GooPos;
+	public GameObject PieceOfGoo;
 
 	// Death
 	public GameObject DeadText;
@@ -41,6 +46,8 @@ public class Player : MonoBehaviour {
 	{
 		//anim = GetComponent<Animator>();
 		health = 100;
+
+		transform.localScale = new Vector3(0.1f, 0.1f,0f);
 	}
 	
 	// Update is called once per frame
@@ -92,7 +99,8 @@ public class Player : MonoBehaviour {
 				
 			if(Input.GetKeyDown(KeyCode.S))
 			{
-
+				transform.localScale -= new Vector3(0.01f, 0.01f,0f);
+				GameObject Goo = Instantiate(PieceOfGoo, GooPos.position, GooPos.rotation) as GameObject; // spawns the gameobejct by the assigned position and rotation
 			}
 		}
 
