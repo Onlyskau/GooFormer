@@ -16,14 +16,13 @@ public class GooOrb : MonoBehaviour {
 	
 	}
 
-	void OnTriggerEnter2D(Collider2D other){	
+	void OnCollisionEnter2D(Collision2D other){	
 		if(other.gameObject.tag == "Player"){						
+			Player playerScript = other.gameObject.GetComponent<Player>();
 
-			if(PickUpCD < Time.time)
-			{
-				Player playerScript = other.gameObject.GetComponent<Player>();									
-				playerScript.Goo += 1;
-				// lav function i player
+			if(PickUpCD < Time.time && playerScript.Goo <= 20)
+			{								
+				playerScript.Grow();
 				Destroy(gameObject);
 			}
 			

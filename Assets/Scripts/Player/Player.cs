@@ -5,14 +5,14 @@ public class Player : MonoBehaviour {
 
 
 	//Movement
-	protected float maxSpeed = 10f;
+	protected float maxSpeed = 6f;
 	
 
 
 	//Jump
 	protected bool grounded = false;
 	protected float groundRadius = 0.2f;
-	protected float jumpForce = 500f;
+	protected float jumpForce = 400f;
 	protected bool doubleJump = false;
 
 	public LayerMask whatIsGround;
@@ -33,7 +33,7 @@ public class Player : MonoBehaviour {
 	protected bool canMove = true;
 
 	// Goo Level
-	public int Goo = 1;
+	public int Goo = 10;
 
 	public Transform GooPos;
 	public GameObject PieceOfGoo;
@@ -99,8 +99,11 @@ public class Player : MonoBehaviour {
 				
 			if(Input.GetKeyDown(KeyCode.S))
 			{
-				transform.localScale -= new Vector3(0.01f, 0.01f,0f);
-				GameObject Goo = Instantiate(PieceOfGoo, GooPos.position, GooPos.rotation) as GameObject; // spawns the gameobejct by the assigned position and rotation
+				if(Goo > 1)
+				{
+					GetLow();
+					GameObject GooBall = Instantiate(PieceOfGoo, GooPos.position, GooPos.rotation) as GameObject; // spawns the gameobejct by the assigned position and rotation
+				}
 			}
 		}
 
@@ -138,6 +141,31 @@ public class Player : MonoBehaviour {
 			immunityCD = Time.time + 0.25f;	
 		}									
 	}
+
+	public void Grow(){
+		if(facingRight)
+			transform.localScale += new Vector3(0.01f, 0.01f,0f);
+		
+		if(!facingRight)
+			transform.localScale += new Vector3((0.01f*-1), 0.01f,0f);
+
+		maxSpeed += 1f;
+		jumpForce += 10f;
+		Goo += 1;
+	}
+
+	public void GetLow(){
+		if(facingRight)
+		transform.localScale -= new Vector3(0.01f, 0.01f,0f);
+
+		if(!facingRight)
+		transform.localScale -= new Vector3((0.01f*-1), 0.01f,0f);
+
+		maxSpeed -= 1f;
+		jumpForce -= 10f;
+		Goo -= 1;
+	}
+
 
 	void OnDestroy(){
 		HealthTracker = 0;

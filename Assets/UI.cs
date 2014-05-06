@@ -27,5 +27,7 @@ public class UI : MonoBehaviour {
 
 		GUI.Box(new Rect(Screen.width/2, Screen.height/8, 80, 40), playerScript.HealthTracker.ToString());
 
+		GUI.Box(new Rect(Screen.width/2, Screen.height/5, 80, 40), playerScript.Goo.ToString());
+
 	}
 }
