@@ -4,7 +4,6 @@ using System.Collections;
 public class GooOrb : MonoBehaviour {
 
 	float PickUpCD;
-	public GameObject MrGoo;
 
 	// Use this for initialization
 	void Start () {
@@ -25,6 +24,16 @@ public class GooOrb : MonoBehaviour {
 				playerScript.Grow();
 				Destroy(gameObject);
 			}
+			
+		}
+
+		if(other.gameObject.tag == "GroundTrigger"){						
+			Destroy(gameObject);
+				
+		}
+
+		if(other.gameObject.tag == "DangerousGround"){						
+			Destroy(gameObject);
 			
 		}
 	}

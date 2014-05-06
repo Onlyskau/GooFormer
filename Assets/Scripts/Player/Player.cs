@@ -5,7 +5,7 @@ public class Player : MonoBehaviour {
 
 
 	//Movement
-	protected float maxSpeed = 6f;
+	protected float maxSpeed = 10f;
 	
 
 
@@ -59,7 +59,7 @@ public class Player : MonoBehaviour {
 		grounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
 			
 		if(grounded)
-			doubleJump = false;
+			doubleJump = true;
 			
 			
 			
@@ -148,6 +148,7 @@ public class Player : MonoBehaviour {
 		
 		if(!facingRight)
 			transform.localScale += new Vector3((0.01f*-1), 0.01f,0f);
+
 
 		maxSpeed += 1f;
 		jumpForce += 10f;
