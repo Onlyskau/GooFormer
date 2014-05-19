@@ -40,6 +40,10 @@ public class Player : MonoBehaviour {
 
 	// Death
 	public GameObject DeadText;
+
+	// Camera
+	public GameObject PlayerCam;
+	protected float ScaleTime = 0.1f;
 	
 	// Use this for initialization
 	void Start () 
@@ -153,6 +157,14 @@ public class Player : MonoBehaviour {
 		maxSpeed += 1f;
 		jumpForce += 10f;
 		Goo += 1;
+
+		CameraScript camScript = PlayerCam.gameObject.GetComponent<CameraScript>();
+
+		camScript.startTime = ScaleTime + Time.time;
+		camScript.startValue += 0.4f;
+		camScript.endValue += 0.4f;
+
+		camScript.ZoomOut();
 	}
 
 	public void GetLow(){
@@ -165,6 +177,14 @@ public class Player : MonoBehaviour {
 		maxSpeed -= 1f;
 		jumpForce -= 10f;
 		Goo -= 1;
+
+		CameraScript camScript = PlayerCam.gameObject.GetComponent<CameraScript>();
+
+		camScript.startTime = ScaleTime + Time.time;
+		camScript.startValue -= 0.4f;
+		camScript.endValue -= 0.4f;
+
+		camScript.ZoomIn();
 	}
 
 
