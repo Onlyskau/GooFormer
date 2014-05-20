@@ -13,7 +13,7 @@ public class CameraScript : MonoBehaviour {
 	public float endValue = 4.4f;
 
 	public float startTime = 0.2f;
-	float duration = 1.5f;
+	float duration = 1.25f;
 
 	float ScaleTime; 		
 

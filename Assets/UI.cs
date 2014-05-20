@@ -3,16 +3,28 @@ using System.Collections;
 
 public class UI : MonoBehaviour {
 
+	// Looking for player
 	Player playerScript;
 	GameObject player;
 	bool foundPlayer = false;
+
+
+	// Scaling
+	float difference = 1;
 
 	// Use this for initialization
 	void Start () {
 	
 	}
 	
-	// Update is called once per frame
+
+	void FixedUpdate () {
+
+		difference = (Screen.width / 12.8f) / 100;
+	}
+
+
+
 	void Update () {
 	
 		if(!player)														
@@ -25,9 +37,9 @@ public class UI : MonoBehaviour {
 
 	void OnGUI() {
 
-		GUI.Box(new Rect(Screen.width/2, Screen.height/8, 80, 40), playerScript.HealthTracker.ToString());
+		GUI.Box(new Rect(20 * difference, 20 * difference, 80 * difference, 40 * difference), playerScript.HealthTracker.ToString());
 
-		GUI.Box(new Rect(Screen.width/2, Screen.height/5, 80, 40), playerScript.Goo.ToString());
+		GUI.Box(new Rect(20 * difference, 80 * difference, 80 * difference, 40 * difference), playerScript.Goo.ToString());
 
 	}
 }
