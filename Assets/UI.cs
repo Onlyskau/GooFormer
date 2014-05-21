@@ -12,6 +12,9 @@ public class UI : MonoBehaviour {
 	// Scaling
 	float difference = 1;
 
+	// Death
+	public GameObject DeadText;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -32,6 +35,11 @@ public class UI : MonoBehaviour {
 		else if(player && !foundPlayer){
 			foundPlayer = true;
 			playerScript = player.GetComponent<Player>();
+		}
+
+		if(playerScript.HealthTracker == 0)
+		{
+			GameObject Dead = Instantiate(DeadText, new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;
 		}
 	}
 

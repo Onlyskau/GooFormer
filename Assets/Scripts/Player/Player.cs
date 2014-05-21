@@ -37,9 +37,7 @@ public class Player : MonoBehaviour {
 
 	public Transform GooPos;
 	public GameObject PieceOfGoo;
-
-	// Death
-	public GameObject DeadText;
+	
 
 	// Camera
 	public GameObject PlayerCam;
@@ -190,7 +188,6 @@ public class Player : MonoBehaviour {
 
 	void OnDestroy(){
 		HealthTracker = 0;
-		//GameObject Dead = Instantiate(DeadText, new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;
 	}
 
 }
