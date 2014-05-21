@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MenuUI : MonoBehaviour {
+public class UIScale : MonoBehaviour {
 
 
+	// Position
+	public float x;
+	public float y;
 
 	// Scaling
 	float difference = 1;
@@ -17,6 +20,7 @@ public class MenuUI : MonoBehaviour {
 	void FixedUpdate () {
 		
 		difference = (Screen.width / 12.8f) / 100;
+		transform.position = new Vector3(x * difference,y * difference,0);
 	}
 
 
