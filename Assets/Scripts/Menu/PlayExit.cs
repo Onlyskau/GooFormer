@@ -9,11 +9,10 @@ public class PlayExit : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-	Screen.showCursor = true;
+	
 	}
 	
-	// This is for the menu when you have to press a button with the mouse
-	// this will make sure you can play , retry or exit the game
+
 	
 	void OnMouseUp(){
 	

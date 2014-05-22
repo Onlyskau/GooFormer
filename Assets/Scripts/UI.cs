@@ -21,6 +21,8 @@ public class UI : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		Screen.showCursor = false;
 	
 	}
 	
@@ -54,6 +56,9 @@ public class UI : MonoBehaviour {
 
 		if(playerScript.HealthTracker == 0)
 		{
+
+			Screen.showCursor = true;
+
 			GUI.Box(new Rect(600 * difference, 300 * difference, 80 * difference, 20 * difference), "You are dead :(");
 			if(GUI.Button(new Rect(600 * difference, 400 * difference, 80 * difference, 20 * difference), "Try Again"))
 			{
