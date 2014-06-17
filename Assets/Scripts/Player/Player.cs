@@ -27,6 +27,7 @@ public class Player : MonoBehaviour {
 	protected int health;
 	protected float immunityCD = 0f;
 	public int HealthTracker;
+	public bool PlayerDead = false;
 
 	// Scripted Event
 	public bool Speech;
@@ -48,6 +49,8 @@ public class Player : MonoBehaviour {
 	{
 		//anim = GetComponent<Animator>();
 		health = 100;
+
+		Time.timeScale = 1;
 
 		transform.localScale = new Vector3(0.1f, 0.1f,0f);
 	}
@@ -188,6 +191,7 @@ public class Player : MonoBehaviour {
 
 	void OnDestroy(){
 		HealthTracker = 0;
+		PlayerDead = true;
 	}
 
 }

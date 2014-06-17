@@ -11,12 +11,16 @@ public class UI : MonoBehaviour {
 
 	// Scaling
 	float difference = 1;
-
-	// Death
-	public string ThisLevel;
+	
 
 	// Image Test
 	public Texture aImage;
+
+	// Choose Level
+	public string ThisLevel;
+
+	// Pause
+	bool Pause = false;
 
 
 	// Use this for initialization
@@ -43,43 +47,77 @@ public class UI : MonoBehaviour {
 			playerScript = player.GetComponent<Player>();
 		}
 
+		if(Input.GetKeyDown(KeyCode.Escape))
+		{
+			if(!Pause)
+			{
+				Pause = true;
+				Time.timeScale = 0;
+				Screen.showCursor = true;
+			} else {
+				Pause = false;
+				Time.timeScale = 1;
+				Screen.showCursor = false;
+			}
+
+		}
 
 	}
 
 	void OnGUI() {
 
-		GUI.Box(new Rect(20 * difference, 10 * difference, 80 * difference, 40 * difference), "Health");
-		GUI.Box(new Rect(20 * difference, 30 * difference, 80 * difference, 40 * difference), playerScript.HealthTracker.ToString());
-
-		GUI.Box(new Rect(20 * difference, 80 * difference, 80 * difference, 40 * difference), "Goo");
-		GUI.Box(new Rect(20 * difference, 100 * difference, 80 * difference, 40 * difference), playerScript.Goo.ToString());
-
-		if(playerScript.HealthTracker == 0)
+		if(player || playerScript.PlayerDead == true)
 		{
 
-			Screen.showCursor = true;
+			GUI.Box(new Rect(20 * difference, 10 * difference, 80 * difference, 40 * difference), "Health");
+			GUI.Box(new Rect(20 * difference, 30 * difference, 80 * difference, 40 * difference), playerScript.HealthTracker.ToString());
 
-			GUI.Box(new Rect(600 * difference, 300 * difference, 80 * difference, 20 * difference), "You are dead :(");
-			if(GUI.Button(new Rect(600 * difference, 400 * difference, 80 * difference, 20 * difference), "Try Again"))
+			GUI.Box(new Rect(20 * difference, 80 * difference, 80 * difference, 40 * difference), "Goo");
+			GUI.Box(new Rect(20 * difference, 100 * difference, 80 * difference, 40 * difference), playerScript.Goo.ToString());
+
+			if(playerScript.PlayerDead == true)
 			{
-				Application.LoadLevel(ThisLevel);
+
+				Screen.showCursor = true;
+
+				GUI.Box(new Rect(600 * difference, 300 * difference, 80 * difference, 20 * difference), "You are dead :(");
+				if(GUI.Button(new Rect(600 * difference, 400 * difference, 80 * difference, 20 * difference), "Try Again"))
+				{
+					Application.LoadLevel(ThisLevel);
+				}
+				if(GUI.Button(new Rect(600 * difference, 450 * difference, 80 * difference, 20 * difference), "Exit"))
+				{
+					Application.LoadLevel("Menu");
+				}
+
+				// Lille tester
+
+				Rect Test = new Rect(1000 * difference, 0 * difference, 100 * difference, 100 * difference);
+				GUI.DrawTexture(Test, aImage, ScaleMode.ScaleToFit, true, 0F);
+				if(Input.GetMouseButton(0))
+				{
+					if (Test.Contains(Event.current.mousePosition)) Application.LoadLevel(ThisLevel);
+				}
+
+
 			}
-			if(GUI.Button(new Rect(600 * difference, 450 * difference, 80 * difference, 20 * difference), "Exit"))
+
+			// Pause
+
+			if(Pause && playerScript.PlayerDead == false)
 			{
-				Application.LoadLevel("Menu");
+				GUI.Box(new Rect(600 * difference, 300 * difference, 80 * difference, 20 * difference), "Paused");
+				if(GUI.Button(new Rect(600 * difference, 400 * difference, 80 * difference, 20 * difference), "Reset"))
+				{
+					Application.LoadLevel(ThisLevel);
+				}
+				if(GUI.Button(new Rect(600 * difference, 450 * difference, 80 * difference, 20 * difference), "Exit"))
+				{
+					Application.LoadLevel("Menu");
+				}
+
+
 			}
-
-			// Lille tester
-	
-
-			Rect Test = new Rect(1000 * difference, 0 * difference, 100 * difference, 100 * difference);
-			GUI.DrawTexture(Test, aImage, ScaleMode.ScaleToFit, true, 0F);
-			if(Input.GetMouseButton(0))
-			{
-				if (Test.Contains(Event.current.mousePosition)) Application.LoadLevel("Menu");
-			}
-
-
 
 		}
 
